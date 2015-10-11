@@ -31,7 +31,7 @@ savehistory(histfilename)
 
 zip.file <- "exdata-data-household_power_consumption.zip"
 csv.file <- "household_power_consumption.txt"
-png.file <- "plot3.png"
+png.file <- "plot4.png"
 data.dir <- getwd()
 fileurl <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
 
@@ -101,17 +101,32 @@ y <- as.numeric(housepw2$Global_active_power)
 png(file=png.file)
 
 
+## Setup for 2 by 2 graphs
+par(mfrow=c(2,2),mar=c(4,4,2,1),oma=c(0,0,2,0))
+
+Voltage <- as.numeric(housepw2$Voltage)
+Global_reactive_power <- as.numeric(housepw2$Global_reactive_power)
+
 ## Create Line Chart to the screen, or in the PNG file if it is open.
-with(housepw2,plot(DateTime,as.numeric(Sub_metering_1),type="l",ann=FALSE))
-with(housepw2, points(DateTime,as.numeric(Sub_metering_2),type="l",col="red"))
-with(housepw2, points(DateTime,as.numeric(Sub_metering_3),type="l",col="blue"))
-legend("topright",pch=150,col=c("black","red","blue"),legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
+with(housepw2, {
+        ## Create Line Chart to the screen, or in the PNG file if it is open.
+        plot(DateTime,as.numeric(Global_active_power),type="l",ann=FALSE)
+        title(ylab="Global Active Power")
+        
+        plot(DateTime,Voltage,type="l")
+        
+        
+        
+        plot(DateTime,as.numeric(Sub_metering_1),type="l",ann=FALSE)
+        points(DateTime,as.numeric(Sub_metering_2),type="l",col="red")
+        points(DateTime,as.numeric(Sub_metering_3),type="l",col="blue")
+        legend("topright",pch=150,col=c("black","red","blue"),legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),bty="n")
+        title(ylab="Energy sub metering")
 
-
-title(ylab="Energy sub metering")
-
-
-
+        plot(DateTime,Global_reactive_power,type="l")
+        
+  
+})
 
 ## Close out the file
 dev.off()

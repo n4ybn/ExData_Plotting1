@@ -102,7 +102,7 @@ png(file=png.file)
 
 
 ## Create Line Chart to the screen, or in the PNG file if it is open.
-plot(x,y,type="l",xlab=housepw2$Day,ann=FALSE)
+plot(x,y,type="l",ann=FALSE)
 title(ylab="Global Active Power (kilowatts)")
 
 

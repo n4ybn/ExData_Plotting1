@@ -1,4 +1,4 @@
-## plot2.R - starting over from scratch 2015-10-10
+## plot3.R - starting over from scratch 2015-10-10
 ## by David DuPre
 
 ## Plot data from:  UC Irvine Machine Learning Repository, a repository for machine learning datasets.
@@ -31,7 +31,7 @@ savehistory(histfilename)
 
 zip.file <- "exdata-data-household_power_consumption.zip"
 csv.file <- "household_power_consumption.txt"
-png.file <- "plot2.png"
+png.file <- "plot3.png"
 data.dir <- getwd()
 fileurl <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
 
@@ -102,8 +102,14 @@ png(file=png.file)
 
 
 ## Create Line Chart to the screen, or in the PNG file if it is open.
-plot(x,y,type="l",xlab=housepw2$Day,ann=FALSE)
-title(ylab="Global Active Power (kilowatts)")
+with(housepw2, plot(DateTime,xlab=Day,as.numeric(Sub_metering_1),type="l"))
+with(housepw2, points(DateTime,as.numeric(Sub_metering_2),type="l",col="red"))
+with(housepw2, points(DateTime,as.numeric(Sub_metering_3),type="l",col="blue"))
+legend("topright",pch=150,col=c("black","red","blue"),legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
+
+
+title()
+
 
 
 
